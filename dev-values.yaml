@@ -15,10 +15,9 @@
 #
 #
 
-# Please note that this example works only with Luna Streaming 2.8.0.1.1.6+
 enableAntiAffinity: false
-enableTls: true
-enableTokenAuth: true
+enableTls: false
+enableTokenAuth: false
 restartOnConfigMapChange:
   enabled: true
 extra:
@@ -27,13 +26,6 @@ extra:
   burnellLogCollector: true
   pulsarHeartbeat: true
   pulsarAdminConsole: true
-
-cert-manager:
-  enabled: true
-
-createCertificates:
-  selfSigned:
-    enabled: true
 
 zookeeper:
   replicaCount: 1
@@ -68,7 +60,6 @@ broker:
     PULSAR_MEM: "\"-Xms400m -Xmx400m -XX:MaxDirectMemorySize=200m -XX:+ExitOnOutOfMemoryError\""
 
 autoRecovery:
-  enableProvisionContainer: true
   resources:
     requests:
       memory: 300Mi
@@ -96,38 +87,11 @@ proxy:
       cpu: 0.3
   configData:
     PULSAR_MEM: "\"-Xms400m -Xmx400m -XX:MaxDirectMemorySize=112m\""
-    PULSAR_PREFIX_amqpListeners: "amqp://0.0.0.0:5672,amqps://0.0.0.0:5671"
-    # The rabbitmq extension will use the superuser user for its operations on the broker
-    PULSAR_PREFIX_amqpBrokerClientAuthenticationParameters: "file:///pulsar/token-superuser/superuser.jwt"
-    PULSAR_PREFIX_proxyExtensionsDirectory: /pulsar/proxyprotocols
   autoPortAssign:
     enablePlainTextWithTLS: true
   service:
     autoPortAssign:
       enabled: true
-  initContainer: 
-    repository: ubuntu
-    tag: latest
-    pullPolicy: IfNotPresent
-    command: ["/bin/bash", "-c", "apt-get update && apt-get install -y wget && wget -O /pulsar/proxyprotocols/rabbitmq.nar https://github.com/datastax/starlight-for-rabbitmq/releases/download/v1.0.0/starlight-rabbitmq-1.0.0.nar"]
-    emptyDirPath: "/pulsar/proxyprotocols"
-  extensions:
-    enabled: true
-    extensions: "rabbitmq"
-    containerPorts:
-      - name: amqp
-        containerPort: 5672
-      - name: amqps
-        containerPort: 5671
-    servicePorts:
-     - name: amqp
-       port: 5672
-       protocol: TCP
-       targetPort: amqp
-     - name: amqps
-       port: 5671
-       protocol: TCP
-       targetPort: amqps      
 
 grafanaDashboards:
   enabled: true

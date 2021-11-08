@@ -58,6 +58,9 @@ broker:
       cpu: 0.3
   configData:
     PULSAR_MEM: "\"-Xms400m -Xmx400m -XX:MaxDirectMemorySize=200m -XX:+ExitOnOutOfMemoryError\""
+    PULSAR_PREFIX_proxyExtensions: rabbitmq
+
+
 
 autoRecovery:
   resources:
@@ -87,6 +90,10 @@ proxy:
       cpu: 0.3
   configData:
     PULSAR_MEM: "\"-Xms400m -Xmx400m -XX:MaxDirectMemorySize=112m\""
+    PULSAR_PREFIX_proxyExtensionsDirectory: /pulsar/proxyprotocols
+    PULSAR_PREFIX_proxyExtensions: rabbitmq
+    PULSAR_PREFIX_amqpListeners: amqp://127.0.0.1:5672
+    PULSAR_PREFIX_advertisedAddress: 127.0.0.1
   autoPortAssign:
     enablePlainTextWithTLS: true
   service:
