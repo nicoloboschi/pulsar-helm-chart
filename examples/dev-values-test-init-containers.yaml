@@ -90,7 +90,7 @@ proxy:
       cpu: 0.3
   configData:
     PULSAR_MEM: "\"-Xms400m -Xmx400m -XX:MaxDirectMemorySize=112m\""
-    PULSAR_PREFIX_proxyExtensionsDirectory: /pulsar/proxyprotocols
+    PULSAR_PREFIX_proxyExtensionsDirectory: /pulsar/myproxyprotocols
     PULSAR_PREFIX_proxyExtensions: rabbitmq
     PULSAR_PREFIX_amqpListeners: amqp://127.0.0.1:5672
     PULSAR_PREFIX_advertisedAddress: 127.0.0.1
@@ -103,8 +103,8 @@ proxy:
     repository: ubuntu
     tag: latest
     pullPolicy: IfNotPresent
-    command: ["/bin/bash", "-c", "apt-get update && apt-get install -y wget && wget -O /pulsar/proxyprotocols/rabbitmq.nar https://github.com/datastax/starlight-for-rabbitmq/releases/download/v1.0.0/starlight-rabbitmq-1.0.0.nar"]
-    emptyDirPath: "/pulsar/proxyprotocols"
+    command: ["/bin/bash", "-c", "apt-get update && apt-get install -y wget && wget -O /pulsar/myproxyprotocols/rabbitmq.nar https://github.com/datastax/starlight-for-rabbitmq/releases/download/v1.0.0/starlight-rabbitmq-1.0.0.nar"]
+    emptyDirPath: "/pulsar/myproxyprotocols"
 
 grafanaDashboards:
   enabled: true
